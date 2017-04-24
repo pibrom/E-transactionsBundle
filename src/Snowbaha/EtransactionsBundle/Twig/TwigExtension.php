@@ -1,6 +1,6 @@
 <?php
 
-namespace JSnow\EtransactionsBundle\Twig;
+namespace Snowbaha\EtransactionsBundle\Twig;
 
 use \Twig_Extension;
 use \Twig_SimpleFunction;
@@ -20,8 +20,8 @@ class TwigExtension extends Twig_Extension
     {
         return array(
             new Twig_SimpleFunction(
-                'systempayForm',
-                array($this, 'systempayForm'),
+                'etransactionsForm',
+                array($this, 'etransactionsForm'),
                 array(
                     'is_safe' => array('html'),
                     'needs_environment' => true
@@ -37,7 +37,7 @@ class TwigExtension extends Twig_Extension
      */
     public function systempayForm(Twig_Environment $twig, $fields)
     {
-        $form_html = $twig->render('JSnowtransactionsBundle:Etransactions:form.html.twig', array('fields' => $fields));
+        $form_html = $twig->render('JSnowEtransactionsBundle:Etransactions:form.html.twig', array('fields' => $fields));
 
         return $form_html;
     }
@@ -47,6 +47,6 @@ class TwigExtension extends Twig_Extension
      */
     public function getName()
     {
-        return 'systempay_twig_extension';
+        return 'snowbaha_etransactions_twig_extension';
     }
 }

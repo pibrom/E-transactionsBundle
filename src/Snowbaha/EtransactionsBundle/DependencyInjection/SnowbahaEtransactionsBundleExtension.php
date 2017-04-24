@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class JSnowEtransactionsBundleExtension extends Extension
+class SnowbahaEtransactionsBundleExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -23,7 +23,7 @@ class JSnowEtransactionsBundleExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         foreach ($config as $parameter => $value)
-            $container->setParameter(sprintf('jsnow_etransactions.%s', $parameter), $value);
+            $container->setParameter(sprintf('snowbaha_etransactions.%s', $parameter), $value);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

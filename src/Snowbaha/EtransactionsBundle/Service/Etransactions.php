@@ -1,6 +1,6 @@
 <?php
 
-namespace JSnow\EtransactionsBundle\Service;
+namespace Snowbaha\EtransactionsBundle\Service;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,13 +44,13 @@ class Etransactions
         $this->logger = $container->get("snow.systempay.logger");
 
         foreach ($this->mandatoryFields as $field => $value) :
-            $this->mandatoryFields[$field] = $container->getParameter(sprintf('snow_systempay.%s', $field));
+            $this->mandatoryFields[$field] = $container->getParameter(sprintf('snowbaha_etransactions.%s', $field));
         endforeach;
 
         if ($this->mandatoryFields['ctx_mode'] == "TEST") :
-            $this->key = $container->getParameter('snow_systempay.key_dev');
+            $this->key = $container->getParameter('snowbaha_etransactions.key_dev');
         else :
-            $this->key = $container->getParameter('snow_systempay.key_prod');
+            $this->key = $container->getParameter('snowbaha_etransactions.key_prod');
         endif;
 
     }
@@ -173,7 +173,7 @@ class Etransactions
     }
 
     /**
-     * Write INFO element in a specifig log to Systempay
+     * Write INFO element in a specifig log to E-transaction
      * @param $string
      */
     public function writeLog($string)
@@ -182,7 +182,7 @@ class Etransactions
     }
 
     /**
-     * Write ERROR in the log to systempay
+     * Write ERROR in the log to E-transaction
      * @param $string
      */
     public function writeErrorLog($string)

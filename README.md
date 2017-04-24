@@ -25,7 +25,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new JSnow\EtransactionsBundle\JSnowEtransactionsBundle(),
+        new Snowbaha\EtransactionsBundle\SnowbahaEtransactionsBundle(),
     );
 }
 ```

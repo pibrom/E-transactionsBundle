@@ -1,6 +1,6 @@
 <?php
 
-namespace JSnow\EtransactionsBundle\DependencyInjection;
+namespace Snowbaha\EtransactionsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('jsnow_etransactions');
+        $rootNode = $treeBuilder->root('snowbaha_etransactions');
 
         $rootNode
             ->children()
