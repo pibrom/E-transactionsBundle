@@ -1,6 +1,6 @@
 <?php
 
-namespace JSnow\EtransactionsBundle\DependencyInjection;
+namespace Snowbaha\EtransactionsBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

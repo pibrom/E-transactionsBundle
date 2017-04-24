@@ -1,11 +1,11 @@
 services:
 
     snowbaha.etransactions:
-        class: 'JSnow\EtransactionsBundle\Service\Etransactions'
+        class: 'Snowbaha\EtransactionsBundle\Service\Etransactions'
         arguments: ['@service_container']
 
     snowbaha.etransactions.twig_extension:
-        class: 'JSnow\EtransactionsBundle\Twig\TwigExtension'
+        class: 'Snowbaha\EtransactionsBundle\Twig\TwigExtension'
         tags:
             - { name: 'twig.extension' }
 
