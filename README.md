@@ -1,5 +1,6 @@
-# E-transactionsBundle 0.x-dev (DO NOT USE UNTIL 1.0)
+# E-transactionsBundle 0.x-dev 
 
+## !!! DO NOT USE UNTIL 1.0 !!!!
 
 This bundle allows to implement a Payment Solution working with [E-transactions](https://www.e-transactions.fr) for your symfony projet.
 E-transactions is a payment gateway proposed by the following bank "Crédit Agricole"

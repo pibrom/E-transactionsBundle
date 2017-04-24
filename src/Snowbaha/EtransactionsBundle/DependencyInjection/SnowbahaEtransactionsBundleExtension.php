@@ -22,8 +22,9 @@ class SnowbahaEtransactionsBundleExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        foreach ($config as $parameter => $value)
+        foreach ($config as $parameter => $value){
             $container->setParameter(sprintf('snowbaha_etransactions.%s', $parameter), $value);
+        }
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
