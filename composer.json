@@ -1,7 +1,15 @@
 {
     "name": "snowbaha/etransactions-bundle",
     "description": "Payment gateway for E-transactions (Crédit Agricole).",
+    "version": "0.x-dev",
     "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Julien Schermann",
+            "homepage": "http://schermann.fr",
+            "role": "Developer"
+        },
+    ],
     "require": {
         "php": ">=7.0"
     },

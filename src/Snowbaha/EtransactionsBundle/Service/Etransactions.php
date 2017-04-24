@@ -15,7 +15,7 @@ class Etransactions
     /**
      * @var string
      */
-    private $paymentUrl = 'https://systempay.cyberpluspaiement.com/vads-payment/';
+    private $paymentUrl = 'https://tpeweb.paybox.com';
 
     /**
      * @var array
@@ -41,7 +41,7 @@ class Etransactions
 
     public function __construct(Container $container)
     {
-        $this->logger = $container->get("snow.systempay.logger");
+        $this->logger = $container->get("snowbaha.etransactions.logger");
 
         foreach ($this->mandatoryFields as $field => $value) :
             $this->mandatoryFields[$field] = $container->getParameter(sprintf('snowbaha_etransactions.%s', $field));
