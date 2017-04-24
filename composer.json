@@ -1,7 +1,7 @@
 {
     "name": "snowbaha/etransactions-bundle",
     "description": "Payment gateway for E-transactions (Crédit Agricole).",
-    "licence": "MIT License",
+    "licence": "MIT",
     "type": "symfony-bundle",
     "authors": [
         {
