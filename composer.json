@@ -1,6 +1,6 @@
 {
     "name": "snowbaha/etransactions-bundle",
-    "description": "Payment gateway for E-transaction (Crédit Agricole).",
+    "description": "Payment gateway for E-transactions (Crédit Agricole).",
     "type": "symfony-bundle",
     "require": {
         "php": ">=7.0"

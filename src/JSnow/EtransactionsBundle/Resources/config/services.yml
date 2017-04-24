@@ -1,0 +1,20 @@
+services:
+
+    jsnow.etransactions:
+        class: JSnow\EtransactionsBundle\Service\Etransactions
+        arguments: [@service_container]
+
+    jsnow.etransactions.twig_extension:
+        class: JSnow\EtransactionsBundle\Twig\TwigExtension
+        tags:
+            - { name: twig.extension }
+
+    jsnow.etransactions.logger:
+        class:     Symfony\Bridge\Monolog\Logger
+        arguments: [app]
+        calls:
+            - [pushHandler, ["@jsnow.etransactions.logger_handler"]]
+
+    jsnow.etransactions.logger_handler:
+        class:     Monolog\Handler\StreamHandler
+        arguments: [%kernel.logs_dir%/%kernel.environment%.systempay.log, 200]
