@@ -9,7 +9,7 @@ use \Twig_Environment;
 
 /**
  * Class TwigExtension
- * @package JSnow\EtransactionsBundle\Twig
+ * @package Snowbaha\EtransactionsBundle\Twig
  */
 class TwigExtension extends Twig_Extension
 {
@@ -20,8 +20,8 @@ class TwigExtension extends Twig_Extension
     {
         return array(
             new Twig_SimpleFunction(
-                'etransactionsForm',
-                array($this, 'etransactionsForm'),
+                'paiementForm',
+                array($this, 'paiementForm'),
                 array(
                     'is_safe' => array('html'),
                     'needs_environment' => true
@@ -35,9 +35,9 @@ class TwigExtension extends Twig_Extension
      * @param $fields
      * @return mixed
      */
-    public function systempayForm(Twig_Environment $twig, $fields)
+    public function paiementForm(Twig_Environment $twig, $fields)
     {
-        $form_html = $twig->render('JSnowEtransactionsBundle:Etransactions:form.html.twig', array('fields' => $fields));
+        $form_html = $twig->render('SnowbahaEtransactionsBundle:Etransactions:form.html.twig', array('fields' => $fields));
 
         return $form_html;
     }
