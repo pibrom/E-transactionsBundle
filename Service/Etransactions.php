@@ -23,6 +23,7 @@ class Etransactions
     private $mandatoryFields = array(
         'id' => null,
         'site' => null,
+        'rang' => null,
         'hash' => "SHA512",
         'retour' => "Mt:M;Ref:R;Auto:A;Erreur:E", // see the doc
     );
@@ -211,11 +212,10 @@ class Etransactions
      * @param $site int/string
      * @param $retour
      */
-    public function setParameterFields($id, $site, $rang, $retour)
+    public function setParameterFields($id, $site, $rang)
     {
         $this->mandatoryFields['id'] = $id;
         $this->mandatoryFields['site'] = $site;
         $this->mandatoryFields['rang'] = $rang;
-        $this->mandatoryFields['retour'] = $retour;
     }
 }
