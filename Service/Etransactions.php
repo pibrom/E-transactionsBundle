@@ -21,14 +21,9 @@ class Etransactions
      * @var array
      */
     private $mandatoryFields = array(
-        'action_mode' => null,
         'env_mode' => null,
-        'page_action' => null,
-        'payment_config' => null,
-        'site_id' => null,
-        'redirect_success_message' => null,
-        'redirect_error_message' => null,
-        'url_return' => null,
+        'site' => null,
+        'retour' => null,
     );
 
     /**
@@ -169,7 +164,7 @@ class Etransactions
             $contenu_signature .= strtoupper($field)."=".$value."&";
         endforeach;
 
-        //$contenu_signature .= $this->key;
+        $contenu_signature = rtrim($contenu_signature, "&"); // remove the last "&"
         $signature = $contenu_signature;
 
         return $signature;

@@ -46,7 +46,7 @@ Mandatory fields CONFIG :
 ```yaml
 snowbaha_etransactions:
     # Credentials
-    site_id: "%etransactions_id%"
+    site: "%etransactions_id%"
     # Keys
     key_dev: "%etransactions_certif_test%"
     key_prod: "%etransactions_certif_prod%"
@@ -63,12 +63,6 @@ Optionnal fields (here the fields have their default values) :
     # Possible values for env_mode : TEST / PRODUCTION
     env_mode: TEST
 
-    # Success
-    redirect_success_timeout: 1
-    redirect_success_message: Redirection vers la boutique dans quelques instants
-    # Error
-    redirect_error_timeout: 1
-    redirect_error_message: Redirection vers la boutique dans quelques instants
 ```
 
 

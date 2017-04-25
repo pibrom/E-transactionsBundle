@@ -23,20 +23,12 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
             ->scalarNode('debug')->defaultValue('ON')->end()
-            ->scalarNode('site_id')->defaultValue('')->end()
+            ->scalarNode('site')->defaultValue('')->end()
             ->scalarNode('key_dev')->defaultValue('')->end()
             ->scalarNode('key_prod')->defaultValue('')->end()
-            ->scalarNode('url_return')->defaultValue('')->end()
-            ->scalarNode('return_mode')->defaultValue('')->end()
+            ->scalarNode('retour')->defaultValue('')->end()
             ->scalarNode('env_mode')->defaultValue('TEST')->end()
-            ->scalarNode('page_action')->defaultValue('PAYMENT')->end()
-            ->scalarNode('action_mode')->defaultValue('INTERACTIVE')->end()
-            ->scalarNode('payment_config')->defaultValue('SINGLE')->end()
-            ->scalarNode('hash')->defaultValue('SHA512')->end()  //*
-            ->scalarNode('redirect_success_timeout')->defaultValue('1')->end()
-            ->scalarNode('redirect_success_message')->defaultValue('Redirection vers la boutique dans quelques instants')->end()
-            ->scalarNode('redirect_error_timeout')->defaultValue('1')->end()
-            ->scalarNode('redirect_error_message')->defaultValue('Redirection vers la boutique dans quelques instants')->end()
+            ->scalarNode('hash')->defaultValue('SHA512')->end()
             ->end()
         ;
 
