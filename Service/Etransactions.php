@@ -18,10 +18,10 @@ class Etransactions
     private $paymentUrl = 'https://tpeweb.paybox.com';
 
     /**
+     * DEFINITE THE VALUES in setParameterFields()
      * @var array
      */
     private $mandatoryFields = array(
-        'env_mode' => null,
         'site' => null,
         'retour' => null,
     );
@@ -33,20 +33,9 @@ class Etransactions
 
     protected $logger;
 
-    public function __construct(Logger $logger_etransaction, Container $container)
+    public function __construct(Logger $logger_etransaction)
     {
         $this->logger = $logger_etransaction;
-
-        foreach ($this->mandatoryFields as $field => $value) :
-            $this->mandatoryFields[$field] = $container->getParameter(sprintf('snowbaha_etransactions.%s', $field));
-        endforeach;
-
-        if ($this->mandatoryFields['env_mode'] == "TEST") :
-            $this->key = $container->getParameter('snowbaha_etransactions.key_dev');
-        else :
-            $this->key = $container->getParameter('snowbaha_etransactions.key_prod');
-        endif;
-
     }
 
     /**
@@ -197,5 +186,31 @@ class Etransactions
     public function writeErrorLog($string)
     {
         $this->logger->error($string);
+    }
+
+    /**
+     * Set the good Key with the good environment
+     * @param string $env_mode
+     * @param string $key_dev
+     * @param string $key_prod
+     */
+    protected function setKey(string $env_mode, string $key_dev, string $key_prod)
+    {
+        if ($env_mode == "TEST") :
+            $this->key = $key_dev;
+        else :
+            $this->key = $key_prod;
+        endif;
+    }
+
+    /**
+     * Hydratation of the default array
+     * @param $site int/string
+     * @param $retour
+     */
+    protected function setParameterFields($site, $retour)
+    {
+        $this->mandatoryFields['site'] = $site;
+        $this->mandatoryFields['retour'] = $retour;
     }
 }

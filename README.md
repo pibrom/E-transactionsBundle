@@ -56,10 +56,6 @@ snowbaha_etransactions:
 
 Optionnal fields (here the fields have their default values) :
 ```yaml
-    # Debug values : ON / OFF
-    debug: ON
-    # Return mode
-    return_mode: GET
     # Possible values for env_mode : TEST / PRODUCTION
     env_mode: TEST
 
