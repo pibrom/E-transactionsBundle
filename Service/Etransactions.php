@@ -157,7 +157,7 @@ class Etransactions
 
         $content_signature = rtrim($content_signature, "&"); // remove the last "&"
 
-        $binKey = pack("H*", $this->key); //  ASCII to binary
+        $binKey = pack("H", $this->key); //  ASCII to binary
 
         // FRENCH OFFICAL DOC :
         // On calcule l’empreinte (à renseigner dans le paramètre PBX_HMAC) grâce à la fonction hash_hmac et la clé binaire
