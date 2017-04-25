@@ -60,8 +60,8 @@ Optionnal fields (here the fields have their default values) :
     debug: ON
     # Return mode
     return_mode: GET
-    # Possible values for ctx_mode : TEST / PRODUCTION
-    ctx_mode: TEST
+    # Possible values for env_mode : TEST / PRODUCTION
+    env_mode: TEST
     # Language
     language: fr
     # Success

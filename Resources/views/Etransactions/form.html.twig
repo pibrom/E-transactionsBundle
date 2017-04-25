@@ -1,2 +1,3 @@
 {# Generate the input #}
-{% for name_field, value_field in fields %}<input type="hidden" name="{{  name_field }}" value="{{ value_field }}">{% endfor %}
+{% for name_field, value_field in fields %}<input type="hidden" name="{{  name_field|upper }}" value="{{ value_field }}">
+{% endfor %}

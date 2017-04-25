@@ -28,12 +28,11 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('key_prod')->defaultValue('')->end()
             ->scalarNode('url_return')->defaultValue('')->end()
             ->scalarNode('return_mode')->defaultValue('')->end()
-            ->scalarNode('ctx_mode')->defaultValue('TEST')->end()
+            ->scalarNode('env_mode')->defaultValue('TEST')->end()
             ->scalarNode('page_action')->defaultValue('PAYMENT')->end()
             ->scalarNode('action_mode')->defaultValue('INTERACTIVE')->end()
             ->scalarNode('payment_config')->defaultValue('SINGLE')->end()
-            ->scalarNode('version')->defaultValue('V2')->end() //Version du protocole d’échange
-            ->scalarNode('language')->defaultValue('fr')->end()
+            ->scalarNode('hash')->defaultValue('SHA512')->end()  //*
             ->scalarNode('redirect_success_timeout')->defaultValue('1')->end()
             ->scalarNode('redirect_success_message')->defaultValue('Redirection vers la boutique dans quelques instants')->end()
             ->scalarNode('redirect_error_timeout')->defaultValue('1')->end()
@@ -41,13 +40,6 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
-        /**
-         * Do not change the following values
-         * page_action: PAYMENT
-         * action_mode: INTERACTIVE
-         * payment_config: SINGLE
-         * version: V2
-         **/
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.

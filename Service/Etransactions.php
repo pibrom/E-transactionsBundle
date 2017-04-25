@@ -22,7 +22,7 @@ class Etransactions
      */
     private $mandatoryFields = array(
         'action_mode' => null,
-        'ctx_mode' => null,
+        'env_mode' => null,
         'page_action' => null,
         'payment_config' => null,
         'site_id' => null,
@@ -47,7 +47,7 @@ class Etransactions
             $this->mandatoryFields[$field] = $container->getParameter(sprintf('snowbaha_etransactions.%s', $field));
         endforeach;
 
-        if ($this->mandatoryFields['ctx_mode'] == "TEST") :
+        if ($this->mandatoryFields['env_mode'] == "TEST") :
             $this->key = $container->getParameter('snowbaha_etransactions.key_dev');
         else :
             $this->key = $container->getParameter('snowbaha_etransactions.key_prod');
@@ -151,7 +151,7 @@ class Etransactions
     {
         $newTab = array();
         foreach ($fields as $field => $value)
-            $newTab[sprintf('vads_%s', $field)] = $value;
+            $newTab[sprintf('pbx_%s', $field)] = $value;
         return $newTab;
     }
 
@@ -161,8 +161,9 @@ class Etransactions
      */
     private function getSignature($fields = null)
     {
-        if (!$fields)
+        if (!$fields) :
             $fields = $this->mandatoryFields = $this->setPrefixToFields($this->mandatoryFields);
+        endif;
         ksort($fields);
         $contenu_signature = "";
         foreach ($fields as $field => $value)
