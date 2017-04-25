@@ -62,16 +62,17 @@ class Etransactions
     }
 
     /**
-     * @param $fields
-     * remove "vads_" prefix and form an array that will looks like :
-     * trans_id => x
+     * Add array of new fields
+     * @param array $fields
      * @return $this
      */
-    public function setOptionnalFields($fields)
+    public function setOptionnalFields(array $fields)
     {
-        foreach ($fields as $field => $value)
-            if (empty($this->mandatoryFields[$field]))
+        foreach ($fields as $field => $value) :
+            if (empty($this->mandatoryFields[$field])) :
                 $this->mandatoryFields[$field] = $value;
+            endif;
+        endforeach;
         return $this;
     }
 
@@ -90,13 +91,13 @@ class Etransactions
      * @param Request $request
      * @return Array
      */
-    public function responseHandler(Request $request)
+    public function responseBankServer(Request $request)
     {
         $query = $request->request->all();
 
         $retour['statut'] = "???";
         $retour['id_trans'] = $query['vads_trans_id'];
-        $retour['amount'] = $query['vads_amount'];
+        $retour['total'] = $query['vads_amount'];
 
         // Check signature
         if (!empty($query['signature']))
@@ -168,7 +169,7 @@ class Etransactions
         // On envoi via la variable PBX_HASH l'algorithme de hachage qui a été utilisé (SHA512 dans ce cas)
         // Pour afficher la liste des algorithmes disponibles sur votre environnement, décommentez la ligne suivante
 
-        $signature = strtoupper(hash_hmac('sha512', $content_signature, $binKey));
+        $signature = strtoupper(hash_hmac($this->mandatoryFields['hash'], $content_signature, $binKey));
 
         return $signature;
     }
