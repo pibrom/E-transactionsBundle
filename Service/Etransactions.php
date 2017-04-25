@@ -86,9 +86,10 @@ class Etransactions
     /**
      * @return array
      */
-    public function getResponse()
+    public function getFields()
     {
-        $this->mandatoryFields['signature'] = $this->getSignature();
+        $this->mandatoryFields['hmac'] = $this->getSignature();
+
         return $this->mandatoryFields;
     }
 
@@ -144,8 +145,10 @@ class Etransactions
     private function setPrefixToFields(array $fields)
     {
         $newTab = array();
-        foreach ($fields as $field => $value)
+        foreach ($fields as $field => $value) :
             $newTab[sprintf('pbx_%s', $field)] = $value;
+        endforeach;
+
         return $newTab;
     }
 
@@ -158,14 +161,22 @@ class Etransactions
         if (!$fields) :
             $fields = $this->mandatoryFields = $this->setPrefixToFields($this->mandatoryFields);
         endif;
-        ksort($fields);
-        $contenu_signature = "";
+        //ksort($fields);
+        $content_signature = "";
         foreach ($fields as $field => $value) :
-            $contenu_signature .= strtoupper($field)."=".$value."&";
+            $content_signature .= strtoupper($field)."=".$value."&";
         endforeach;
 
-        $contenu_signature = rtrim($contenu_signature, "&"); // remove the last "&"
-        $signature = $contenu_signature;
+        $content_signature = rtrim($content_signature, "&"); // remove the last "&"
+
+        $binKey = pack("H*", $this->key); //  ASCII to binary
+
+        // FRENCH OFFICAL DOC :
+        // On calcule l’empreinte (à renseigner dans le paramètre PBX_HMAC) grâce à la fonction hash_hmac et la clé binaire
+        // On envoi via la variable PBX_HASH l'algorithme de hachage qui a été utilisé (SHA512 dans ce cas)
+        // Pour afficher la liste des algorithmes disponibles sur votre environnement, décommentez la ligne suivante
+
+        $signature = strtoupper(hash_hmac('sha512', $content_signature, $binKey));
 
         return $signature;
     }
