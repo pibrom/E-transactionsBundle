@@ -51,10 +51,11 @@ class Etransactions
      * US Dollar => 840
      * @return $this
      */
-    public function init($cmd, $amount, $currency = 978)
+    public function init($cmd, $amount, $email_buyer, $currency = 978)
     {
-        $this->mandatoryFields['total'] = $amount;
+        $this->mandatoryFields['total'] = $amount; // total price cents
         $this->mandatoryFields['devise'] = $currency;
+        $this->mandatoryFields['porteur'] = $email_buyer; // email of the buyer
         $this->mandatoryFields['cmd'] = $cmd; // Reference of the order
         $this->mandatoryFields['time'] = date("c"); // ISO-8601
         return $this;
@@ -212,9 +213,9 @@ class Etransactions
      * @param $site int/string
      * @param $retour
      */
-    public function setParameterFields($id, $site, $rang)
+    public function setParameterFields(int $id,int $site, $rang)
     {
-        $this->mandatoryFields['id'] = $id;
+        $this->mandatoryFields['identifiant'] = $id;
         $this->mandatoryFields['site'] = $site;
         $this->mandatoryFields['rang'] = $rang;
     }

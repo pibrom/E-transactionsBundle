@@ -22,16 +22,18 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('id')->defaultValue('')->end()
-            ->scalarNode('site')->defaultValue('')->end()
-            ->scalarNode('rang')->defaultValue('')->end()
-            ->scalarNode('key_dev')->defaultValue('')->end()
-            ->scalarNode('key_prod')->defaultValue('')->end()
-            ->scalarNode('retour')->defaultValue('')->end()
-            ->scalarNode('env_mode')->defaultValue('TEST')->end()
-            ->scalarNode('hash')->defaultValue('SHA512')->end()
+            ->scalarNode('identifiant')->defaultValue('')->end() // Identifiant interne (fourni par l’assistance)
+            ->scalarNode('site')->defaultValue('')->end()        // Numéro de site (fourni par l’assistance E-transactions)
+            ->scalarNode('rang')->defaultValue('')->end()       // Numéro de rang (fourni par l’assistance)
+            ->scalarNode('key_dev')->defaultValue('')->end()    // Certificat TEST
+            ->scalarNode('key_prod')->defaultValue('')->end()   // Certificat PROD
+            ->scalarNode('retour')->defaultValue('')->end()     // Liste des variables à retourner par E-transactions
+            ->scalarNode('env_mode')->defaultValue('TEST')->end() // Type Environnement
+            ->scalarNode('hash')->defaultValue('SHA512')->end()     // Type d’algorithme de hachage pour le calcul de l’empreinte
             ->end()
         ;
+        // + PBX_TOTAL = Montant total de la transaction
+        // + PBX_PORTEUR = Adresse E-mail de l’acheteur
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
