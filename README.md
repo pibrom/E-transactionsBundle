@@ -62,8 +62,7 @@ Optionnal fields (here the fields have their default values) :
     return_mode: GET
     # Possible values for env_mode : TEST / PRODUCTION
     env_mode: TEST
-    # Language
-    language: fr
+
     # Success
     redirect_success_timeout: 1
     redirect_success_message: Redirection vers la boutique dans quelques instants
@@ -71,3 +70,5 @@ Optionnal fields (here the fields have their default values) :
     redirect_error_timeout: 1
     redirect_error_message: Redirection vers la boutique dans quelques instants
 ```
+
+

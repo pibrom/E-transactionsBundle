@@ -26,7 +26,6 @@ class Etransactions
         'page_action' => null,
         'payment_config' => null,
         'site_id' => null,
-        'version' => null,
         'redirect_success_message' => null,
         'redirect_error_message' => null,
         'url_return' => null,
@@ -166,10 +165,13 @@ class Etransactions
         endif;
         ksort($fields);
         $contenu_signature = "";
-        foreach ($fields as $field => $value)
-            $contenu_signature .= $value."+";
-            $contenu_signature .= $this->key;
-            $signature = sha1($contenu_signature);
+        foreach ($fields as $field => $value) :
+            $contenu_signature .= strtoupper($field)."=".$value."&";
+        endforeach;
+
+        //$contenu_signature .= $this->key;
+        $signature = $contenu_signature;
+
         return $signature;
     }
 
