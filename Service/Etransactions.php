@@ -4,7 +4,7 @@ namespace Snowbaha\EtransactionsBundle\Service;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Bridge\Monolog\Logger;
 
 /**
  * Class Etransactions
@@ -38,9 +38,9 @@ class Etransactions
 
     protected $logger;
 
-    public function __construct(Container $container)
+    public function __construct(Logger $logger_etransaction, Container $container)
     {
-        $this->logger = $container->get("snowbaha.etransactions.logger");
+        $this->logger = $logger_etransaction;
 
         foreach ($this->mandatoryFields as $field => $value) :
             $this->mandatoryFields[$field] = $container->getParameter(sprintf('snowbaha_etransactions.%s', $field));

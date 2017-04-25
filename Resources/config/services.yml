@@ -1,7 +1,7 @@
 services:
     snowbaha.etransactions:
         class: 'Snowbaha\EtransactionsBundle\Service\Etransactions'
-        arguments: ['@service_container']
+        arguments: ['@snowbaha.etransactions.logger','@service_container']
 
     snowbaha.etransactions.twig_extension:
         class: 'Snowbaha\EtransactionsBundle\Twig\TwigExtension'
