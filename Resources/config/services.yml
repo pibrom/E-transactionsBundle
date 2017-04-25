@@ -5,7 +5,7 @@ services:
             - '@snowbaha.etransactions.logger'
         calls:
             - ['setKey', ['%snowbaha_etransactions.env_mode%', '%snowbaha_etransactions.key_dev%', '%snowbaha_etransactions.key_prod%']]
-            - ['setParameterFields', ['%snowbaha_etransactions.site%', '%snowbaha_etransactions.retour%']]
+            - ['setParameterFields', ['%snowbaha_etransactions.site%', '%snowbaha_etransactions.rang%, '%snowbaha_etransactions.retour%']]
 
     snowbaha.etransactions.twig_extension:
         class: 'Snowbaha\EtransactionsBundle\Twig\TwigExtension'

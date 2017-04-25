@@ -47,6 +47,7 @@ Mandatory fields CONFIG :
 snowbaha_etransactions:
     # Credentials
     site: "%etransactions_id%"
+    rang: "your_rank"
     # Keys
     key_dev: "%etransactions_certif_test%"
     key_prod: "%etransactions_certif_prod%"

@@ -209,9 +209,10 @@ class Etransactions
      * @param $site int/string
      * @param $retour
      */
-    public function setParameterFields($site, $retour)
+    public function setParameterFields($site, $rang, $retour)
     {
         $this->mandatoryFields['site'] = $site;
+        $this->mandatoryFields['rang'] = $rang;
         $this->mandatoryFields['retour'] = $retour;
     }
 }
