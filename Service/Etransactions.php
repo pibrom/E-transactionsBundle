@@ -2,7 +2,6 @@
 
 namespace Snowbaha\EtransactionsBundle\Service;
 
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Monolog\Logger;
 
@@ -131,7 +130,7 @@ class Etransactions
      * @param array $fields
      * @return array
      */
-    private function setPrefixToFields(array $fields)
+    protected function setPrefixToFields(array $fields)
     {
         $newTab = array();
         foreach ($fields as $field => $value) :
@@ -145,12 +144,12 @@ class Etransactions
      * @param null $fields
      * @return string
      */
-    private function getSignature($fields = null)
+    protected function getSignature($fields = null)
     {
         if (!$fields) :
             $fields = $this->mandatoryFields = $this->setPrefixToFields($this->mandatoryFields);
         endif;
-        //ksort($fields);
+
         $content_signature = "";
         foreach ($fields as $field => $value) :
             $content_signature .= strtoupper($field)."=".$value."&";
@@ -194,7 +193,7 @@ class Etransactions
      * @param string $key_dev
      * @param string $key_prod
      */
-    protected function setKey(string $env_mode, string $key_dev, string $key_prod)
+    public function setKey(string $env_mode, string $key_dev, string $key_prod)
     {
         if ($env_mode == "TEST") :
             $this->key = $key_dev;
@@ -208,7 +207,7 @@ class Etransactions
      * @param $site int/string
      * @param $retour
      */
-    protected function setParameterFields($site, $retour)
+    public function setParameterFields($site, $retour)
     {
         $this->mandatoryFields['site'] = $site;
         $this->mandatoryFields['retour'] = $retour;

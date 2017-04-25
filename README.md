@@ -51,11 +51,7 @@ snowbaha_etransactions:
     key_dev: "%etransactions_certif_test%"
     key_prod: "%etransactions_certif_prod%"
     # Return
-    url_return: http://www.example.com/payment_return
-```
-
-Optionnal fields (here the fields have their default values) :
-```yaml
+    retour: http://www.example.com/payment_return
     # Possible values for env_mode : TEST / PRODUCTION
     env_mode: TEST
 
