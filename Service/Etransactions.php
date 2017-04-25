@@ -157,14 +157,14 @@ class Etransactions
 
         $content_signature = rtrim($content_signature, "&"); // remove the last "&"
 
-        $binKey = pack("H", $this->key); //  ASCII to binary
+        //$binKey = pack("H*", $this->key); //  ASCII to binary
 
         // FRENCH OFFICAL DOC :
         // On calcule l’empreinte (à renseigner dans le paramètre PBX_HMAC) grâce à la fonction hash_hmac et la clé binaire
         // On envoi via la variable PBX_HASH l'algorithme de hachage qui a été utilisé (SHA512 dans ce cas)
         // Pour afficher la liste des algorithmes disponibles sur votre environnement, décommentez la ligne suivante
 
-        $signature = strtoupper(hash_hmac('sha512', $content_signature, $binKey));
+        $signature = strtoupper(hash_hmac('sha512', $content_signature, $this->key));
 
         return $signature;
     }
