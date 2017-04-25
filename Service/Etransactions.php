@@ -14,7 +14,7 @@ class Etransactions
     /**
      * @var string
      */
-    private $paymentUrl = 'https://tpeweb.paybox.com';
+    private $paymentUrl;
 
     /**
      * DEFINITE THE VALUES in setParameterFields()
@@ -76,7 +76,7 @@ class Etransactions
      */
     public function getFields()
     {
-        $this->mandatoryFields['hmac'] = $this->getSignature();
+        $this->mandatoryFields['PBX_HMAC'] = $this->getSignature();
 
         return $this->mandatoryFields;
     }
@@ -197,8 +197,10 @@ class Etransactions
     {
         if ($env_mode == "TEST") :
             $this->key = $key_dev;
+            $this->paymentUrl = 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
         else :
             $this->key = $key_prod;
+            $this->paymentUrl = 'https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
         endif;
     }
 
