@@ -32,3 +32,42 @@ public function registerBundles()
     );
 }
 ```
+
+### Step 3 : Configure the bundle
+Mandatory fields PARAMETER:
+```yaml
+# E-Transactions
+    etransactions_id: ~
+    etransactions_certif_test: ~
+    etransactions_certif_prod: ~
+```
+
+Mandatory fields CONFIG :
+```yaml
+snow_etransactions:
+    # Credentials
+    site_id: "%etransactions_id%"
+    # Keys
+    key_dev: "%etransactions_certif_test%"
+    key_prod: "%etransactions_certif_prod%"
+    # Return
+    url_return: http://www.example.com/payment_return
+```
+
+Optionnal fields (here the fields have their default values) :
+```yaml
+    # Debug values : ON / OFF
+    debug: ON
+    # Return mode
+    return_mode: GET
+    # Possible values for ctx_mode : TEST / PRODUCTION
+    ctx_mode: TEST
+    # Language
+    language: fr
+    # Success
+    redirect_success_timeout: 1
+    redirect_success_message: Redirection vers le site dans quelques instants
+    # Error
+    redirect_error_timeout: 1
+    redirect_error_message: Redirection vers le site dans quelques instants
+```

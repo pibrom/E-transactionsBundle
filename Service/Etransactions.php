@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 /**
- * Class SystemPay
- * @package JSnow\EtransactionsBundle\Service
+ * Class Etransactions
+ * @package Snowbaha\EtransactionsBundle\Service
  */
 class Etransactions
 {
