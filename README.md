@@ -44,7 +44,7 @@ Mandatory fields PARAMETER:
 
 Mandatory fields CONFIG :
 ```yaml
-snow_etransactions:
+snowbaha_etransactions:
     # Credentials
     site_id: "%etransactions_id%"
     # Keys
@@ -66,8 +66,8 @@ Optionnal fields (here the fields have their default values) :
     language: fr
     # Success
     redirect_success_timeout: 1
-    redirect_success_message: Redirection vers le site dans quelques instants
+    redirect_success_message: Redirection vers la boutique dans quelques instants
     # Error
     redirect_error_timeout: 1
-    redirect_error_message: Redirection vers le site dans quelques instants
+    redirect_error_message: Redirection vers la boutique dans quelques instants
 ```
