@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Snowbaha\\EtransactionsBundle\\": "src/EtransactionsBundle/"
+            "Snowbaha\\EtransactionsBundle\\": ""
         }
     }
 }
