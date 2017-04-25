@@ -38,6 +38,7 @@ Mandatory fields PARAMETER:
 ```yaml
 # E-Transactions
     etransactions_id: ~
+    etransactions_site: ~
     etransactions_certif_test: ~
     etransactions_certif_prod: ~
 ```
@@ -46,15 +47,14 @@ Mandatory fields CONFIG :
 ```yaml
 snowbaha_etransactions:
     # Credentials
-    site: "%etransactions_id%"
+    id: "%etransactions_id%"
+    site: "%etransactions_site%"
     rang: "your_rank"
     # Keys
     key_dev: "%etransactions_certif_test%"
     key_prod: "%etransactions_certif_prod%"
-    # Return
-    retour: http://www.example.com/payment_return
-    # Possible values for env_mode : TEST / PRODUCTION
-    env_mode: TEST
+    # SETTING
+    env_mode: TEST # Possible values : TEST / PRODUCTION
 
 ```
 
