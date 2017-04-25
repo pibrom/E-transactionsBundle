@@ -56,8 +56,8 @@ class Etransactions
     }
 
     /**
-     * @param int $id_transaction
-     * @param int $amount
+     * @param  $cmd
+     * @param int $amount (cents)
      * Use int :
      * 10,28 € = 1028
      * 95 € = 9500
@@ -66,12 +66,12 @@ class Etransactions
      * US Dollar => 840
      * @return $this
      */
-    public function init($id_transaction, $amount, $currency = 978)
+    public function init($cmd, $amount, $currency = 978)
     {
-        $this->mandatoryFields['amount'] = $amount;
+        $this->mandatoryFields['total'] = $amount;
         $this->mandatoryFields['currency'] = $currency;
-        $this->mandatoryFields['trans_id'] = sprintf('%06d', $id_transaction); // need 6 digit number (empty space with 0)
-        $this->mandatoryFields['trans_date'] = gmdate('YmdHis');
+        $this->mandatoryFields['cmd'] = $cmd; // Reference of the order
+        $this->mandatoryFields['time'] = date("c"); // ISO-8601
         return $this;
     }
 

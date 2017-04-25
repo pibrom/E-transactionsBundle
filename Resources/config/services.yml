@@ -10,7 +10,7 @@ services:
 
     snowbaha.etransactions.logger:
         class: 'Symfony\Bridge\Monolog\Logger'
-        arguments: [app]
+        arguments: ['app']
         calls:
             - ['pushHandler', ['@snowbaha.etransactions.logger_handler']]
 
