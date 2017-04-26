@@ -4,6 +4,10 @@
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/480895ee-8a76-4bd6-a823-9e0a90f32576/big.png)](https://insight.sensiolabs.com/projects/480895ee-8a76-4bd6-a823-9e0a90f32576)
 
+[![Latest Stable Version](https://poser.pugx.org/snowbaha/etransactions-bundle/v/stable)](https://packagist.org/packages/snowbaha/etransactions-bundle)
+
+[![Total Downloads](https://poser.pugx.org/snowbaha/etransactions-bundle/downloads)](https://packagist.org/packages/snowbaha/etransactions-bundle)
+
 This bundle allows to implement a Payment Solution working with [E-transactions](https://www.e-transactions.fr) for your symfony projet.
 E-transactions is a payment gateway proposed by the following bank "Crédit Agricole"
 

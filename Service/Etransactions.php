@@ -151,6 +151,8 @@ class Etransactions
      */
     protected function getSignature($fields = null)
     {
+        $hash = $this->mandatoryFields['hash']; // before to prefix
+
         if (!$fields) :
             $fields = $this->mandatoryFields = $this->setPrefixToFields($this->mandatoryFields);
         endif;
@@ -169,7 +171,7 @@ class Etransactions
         // On envoi via la variable PBX_HASH l'algorithme de hachage qui a été utilisé (SHA512 dans ce cas)
         // Pour afficher la liste des algorithmes disponibles sur votre environnement, décommentez la ligne suivante
 
-        $signature = strtoupper(hash_hmac($this->mandatoryFields['hash'], $content_signature, $binKey));
+        $signature = strtoupper(hash_hmac($hash, $content_signature, $binKey));
 
         return $signature;
     }
