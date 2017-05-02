@@ -95,6 +95,11 @@ class Etransactions
     {
         $query = $request->query->all();
 
+        // if the request is empty
+        if(!isset($query['ref']) && !isset($query['amount']) ) :
+            return null;
+        endif;
+
         $retour['sucessPayment'] = false;
         $retour['ref'] = $query['ref'];
         $retour['amount'] = $query['amount'];
@@ -106,7 +111,7 @@ class Etransactions
         {
             $retour['sign'] = $query['sign'];
 
-            if ( $this->checkSignature($retour['sign']) === true )
+            if ( $this->checkSignature( $retour['sign'], $request->getQueryString() ) === true )
             {
                 $this->writeLog( json_encode($query) );
 
@@ -177,17 +182,22 @@ class Etransactions
     }
 
     /**
-     * Check the signature - TEMPORARY DISABLED
+     * Check the signature
      * @param $sign
      * @return bool
      */
-    protected function checkSignature($sign)
+    protected function checkSignature($sign, $query_string )
     {
-        if( !empty($sign) ) :
-            return true;
-        else :
-            return false;
-        endif;
+        return openssl_verify( $query_string, $sign, $this->key  );
+    }
+
+    protected function getSignedData( $qrystr, &$data, &$sig ) {          // renvoi les donnes signees et la signature
+
+        $pos = strrpos( $qrystr, '&' );                         // cherche dernier separateur
+        $data = substr( $qrystr, 0, $pos );                     // et voila les donnees signees
+        $pos= strpos( $qrystr, '=', $pos ) + 1;                 // cherche debut valeur signature
+        $sig = substr( $qrystr, $pos );                         // et voila la signature
+        $sig = base64_decode( urldecode( $sig ));               // decodage signature
     }
 
     /**
