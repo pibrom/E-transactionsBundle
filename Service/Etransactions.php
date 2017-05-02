@@ -81,7 +81,7 @@ class Etransactions
      */
     public function getFields()
     {
-        $this->mandatoryFields['PBX_HMAC'] = $this->getSignature();
+        $this->mandatoryFields['PBX_HMAC'] = $this->getHmac();
 
         return $this->mandatoryFields;
     }
@@ -104,13 +104,13 @@ class Etransactions
         // Check signature
         if (!empty($query['sign']))
         {
-            $signature = $query['sign'];
-            unset ($query['sign']);
-            if ($signature == $this->getSignature($query))
+            $retour['sign'] = $query['sign'];
+
+            if ( $this->checkSignature($retour['sign']) === true )
             {
                 $this->writeLog( json_encode($query) );
 
-                if ($query['error'] == "00000") :
+                if ($retour['error'] == "00000") :
                     $retour['sucessPayment'] = true;
                 endif;
             }else{
@@ -149,7 +149,7 @@ class Etransactions
      * @param null $fields
      * @return string
      */
-    protected function getSignature($fields = null)
+    protected function getHmac($fields = null)
     {
         $hash = $this->mandatoryFields['hash']; // before to prefix
 
@@ -157,12 +157,12 @@ class Etransactions
             $fields = $this->mandatoryFields = $this->setPrefixToFields($this->mandatoryFields);
         endif;
 
-        $content_signature = "";
+        $content_hmac= "";
         foreach ($fields as $field => $value) :
-            $content_signature .= strtoupper($field)."=".$value."&";
+            $content_hmac.= strtoupper($field)."=".$value."&";
         endforeach;
 
-        $content_signature = rtrim($content_signature, "&"); // remove the last "&"
+        $content_hmac= rtrim($content_hmac, "&"); // remove the last "&"
 
         $binKey = pack("H*", $this->key); //  ASCII to binary
 
@@ -171,9 +171,23 @@ class Etransactions
         // On envoi via la variable PBX_HASH l'algorithme de hachage qui a été utilisé (SHA512 dans ce cas)
         // Pour afficher la liste des algorithmes disponibles sur votre environnement, décommentez la ligne suivante
 
-        $signature = strtoupper(hash_hmac($hash, $content_signature, $binKey));
+        $hmac = strtoupper(hash_hmac($hash, $content_hmac, $binKey));
 
-        return $signature;
+        return $hmac;
+    }
+
+    /**
+     * Check the signature - TEMPORARY DISABLED
+     * @param $sign
+     * @return bool
+     */
+    protected function checkSignature($sign)
+    {
+        if( !empty($sign) ) :
+            return true;
+        else :
+            return false;
+        endif;
     }
 
     /**
