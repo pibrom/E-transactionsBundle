@@ -94,7 +94,8 @@ class Etransactions
     public function responseBankServer(Request $request)
     {
         $query = $request->request->all();
-
+        $this->writeErrorLog( "Empty signature with ".json_encode($query) );
+        /* TEMP
         $retour['statut'] = "???";
         $retour['id_trans'] = $query['vads_trans_id'];
         $retour['total'] = $query['vads_amount'];
@@ -119,7 +120,7 @@ class Etransactions
         }else{
             $this->writeErrorLog( "Empty signature with id_trans : [".$retour['id_trans']."] ".json_encode($query) );
         }
-        return $retour;
+        return $retour;*/
     }
 
     /**
