@@ -119,7 +119,7 @@ class Etransactions
                     $retour['sucessPayment'] = true;
                 endif;
             }else{
-                $this->writeErrorLog( "Fail check signature with ref : [".$retour['ref']."] ".json_encode($query) );
+                $this->writeErrorLog( "Fail check signature with ref : [".$retour['ref']."] and the data_query [".$request->getQueryString()."] ".json_encode($query) );
             }
         }else{
             $this->writeErrorLog( "Empty signature with ref : [".$retour['ref']."] ".json_encode($query) );
@@ -188,16 +188,12 @@ class Etransactions
      */
     protected function checkSignature($sign, $query_string )
     {
-        return openssl_verify( $query_string, $sign, $this->key  );
-    }
+        $pos_sign = strrpos( $query_string, '&' ); // search the last
+        $data = substr( $query_string, 0, $pos_sign ); // data without the signature
 
-    protected function getSignedData( $qrystr, &$data, &$sig ) {          // renvoi les donnes signees et la signature
-
-        $pos = strrpos( $qrystr, '&' );                         // cherche dernier separateur
-        $data = substr( $qrystr, 0, $pos );                     // et voila les donnees signees
-        $pos= strpos( $qrystr, '=', $pos ) + 1;                 // cherche debut valeur signature
-        $sig = substr( $qrystr, $pos );                         // et voila la signature
-        $sig = base64_decode( urldecode( $sig ));               // decodage signature
+        $signature_base = base64_decode( urldecode( $sign ));
+        
+        return openssl_verify( $data, $signature_base, $this->key  );
     }
 
     /**
