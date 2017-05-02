@@ -13,7 +13,7 @@ Using composer :
 ```json
 {
     "require": {
-        "snowbaha/etransactions-bundle": "dev-master"
+        "snowbaha/etransactions-bundle": "~1.0"
     }
 }
 ```
@@ -61,10 +61,10 @@ snowbaha_etransactions:
 ## How to use
 ### Controller
 #### Create a Transaction
-To intantiate a new Transaction, you need to create an action in one of your controller and call the `snowbaha.etransactions` service. 
+To initiate a new Transaction, you need to create an action in one of your controller and call the `snowbaha.etransactions` service. 
 All mandatory fields are used with their default value. You can configure all the common fields of your transactions in the `app/config/config.yml` file.
 
-To see what fields are available see the PDF doc.
+To see what fields are available see the PDF official doc.
 
 ##### Service Method
 * `init($order_id, $amount, $email_buyer, $currency = 978)` allows you to specify the amount and the currency of the transaction.
@@ -164,6 +164,6 @@ This is how the template for the `payOnlineAction()` may look like. You can use 
 ### LOG
 When you will get an error with the payment, you can have more information with the log : `ENV.etransaction.log`
 
-### Check the signature 
+### /!\ Check the signature 
 The current version of this bundle doesn't check the content signature (just check if not empty), don't hesitate to send me your code to put it in the next version!
 `Service\Etransactions   checkSignature()`
