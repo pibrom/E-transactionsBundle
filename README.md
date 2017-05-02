@@ -97,6 +97,13 @@ This route will be called by the E-Transactions service to update you about the 
 
 Service Method:
 * `responseBankServer(Request)` is used to update the transaction status (in database)
+* You will a array with :
+    * sucessPayment: (should be true to validate the payment)
+    * amount: (your pbx_total var)
+    * ref: (your pbx_cmb var)
+    * error:E; (error with `00000` if nothing)
+    * auto:A; (autorisation)
+    * sign:S  (signature to check)
 
 ##### Example
 ```php
@@ -104,16 +111,31 @@ Service Method:
     /**
      * @Route("/payment/verification")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function paymentVerificationAction(Request $request)
     {
         // ...
-        $this->get('snowbaha.etransactions')
-            ->responseHandler($request)
-        ;
+         $responseBank = $this->get('snowbaha.etransactions')->responseBankServer($request);
+        
+        $id_order = (int)$responseBank['ref'];
+        $Order = $this->get('app.provider.order')->getOneByID( $id_order );
 
-        return new Response();
+        // Success
+        if($responseBank['sucessPayment'] === true && !is_null($Order)) :
+
+            $Order->setState("order.state.success_payment");
+            $Order->setPaymentError(0);
+
+            // Email notification
+            $this->get('app.mailing.order')->sendNewOrderNotif($Order);
+
+        elseif( !is_null($Order) ) :
+            // Error
+            $Order->setState('order.state.success_payment_error');
+            $Order->setPaymentError($responseBank['error']);
+        endif;
+
+        //...
     }
 ```
 

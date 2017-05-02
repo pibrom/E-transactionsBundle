@@ -25,7 +25,7 @@ class Etransactions
         'site' => null,
         'rang' => null,
         'hash' => "SHA512",
-        'retour' => "Mt:M;Ref:R;Auto:A;Erreur:E", // see the doc
+        'retour' => "amount:M;ref:R;error:E;auto:A;sign:S", // M : amount (pbx_total) ; R : reference (pbx_cmd) ; E : error ; A : Autorisation number ; S : signature (must be the last)
     );
 
     /**
@@ -89,38 +89,37 @@ class Etransactions
     /**
      * Check the verification from the bank server
      * @param Request $request
-     * @return Array
+     * @return array $retour
      */
     public function responseBankServer(Request $request)
     {
         $query = $request->request->all();
-        $this->writeErrorLog( "Empty signature with ".json_encode($query) );
-        /* TEMP
-        $retour['statut'] = "???";
-        $retour['id_trans'] = $query['vads_trans_id'];
-        $retour['total'] = $query['vads_amount'];
+
+        $retour['sucessPayment'] = false;
+        $retour['ref'] = $query['ref'];
+        $retour['amount'] = $query['amount'];
+        $retour['error'] = $query['error'];
+        $retour['auto'] = $query['auto'];
 
         // Check signature
-        if (!empty($query['signature']))
+        if (!empty($query['sign']))
         {
-            $signature = $query['signature'];
-            unset ($query['signature']);
+            $signature = $query['sign'];
+            unset ($query['sign']);
             if ($signature == $this->getSignature($query))
             {
                 $this->writeLog( json_encode($query) );
 
-                if ($query['vads_trans_status'] == "AUTHORISED") :
-                    $retour['statut'] = "ok";
-                else :
-                    $retour['statut'] = $query['vads_trans_status'];
+                if ($query['error'] == "00000") :
+                    $retour['sucessPayment'] = true;
                 endif;
             }else{
-                $this->writeErrorLog( "Fail check signature with id_trans : [".$retour['id_trans']."] ".json_encode($query) );
+                $this->writeErrorLog( "Fail check signature with ref : [".$retour['ref']."] ".json_encode($query) );
             }
         }else{
-            $this->writeErrorLog( "Empty signature with id_trans : [".$retour['id_trans']."] ".json_encode($query) );
+            $this->writeErrorLog( "Empty signature with ref : [".$retour['ref']."] ".json_encode($query) );
         }
-        return $retour;*/
+        return $retour;
     }
 
     /**
