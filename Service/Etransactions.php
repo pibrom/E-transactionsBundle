@@ -93,7 +93,7 @@ class Etransactions
      */
     public function responseBankServer(Request $request)
     {
-        $query = $request->request->all();
+        $query = $request->query->all();
 
         $retour['sucessPayment'] = false;
         $retour['ref'] = $query['ref'];

@@ -160,3 +160,6 @@ This is how the template for the `payOnlineAction()` may look like. You can use 
         document.getElementById('etransactions-form').submit();
     </script>
 ```
+
+### LOG
+When you will get an error with the paiement, you can have more information with the log : `ENV.etransaction.log`
