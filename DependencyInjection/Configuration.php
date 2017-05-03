@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('retour')->defaultValue('')->end()     // Liste des variables à retourner par E-transactions
             ->scalarNode('env_mode')->defaultValue('TEST')->end() // Type Environnement
             ->scalarNode('hash')->defaultValue('SHA512')->end()     // Type d’algorithme de hachage pour le calcul de l’empreinte
+            ->scalarNode('check_signature')->defaultValue(false)->end()     // if you want to check the signature
             ->end()
         ;
         // + PBX_TOTAL = Montant total de la transaction

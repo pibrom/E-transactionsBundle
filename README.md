@@ -53,8 +53,9 @@ snowbaha_etransactions:
     # Keys
     key_dev: "%etransactions_certif_test%"
     key_prod: "%etransactions_certif_prod%"
-    # SETTING
-    env_mode: TEST # Possible values : TEST / PRODUCTION
+    # SETTING OPTIONAL
+    # env_mode: TEST # TEST bu default - Possible values : TEST / PRODUCTION
+    # check_signature: false # false by Default (if you want to check the signature of the IPN Bank
 
 ```
 

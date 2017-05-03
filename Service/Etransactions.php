@@ -42,10 +42,12 @@ class Etransactions
     private $publicKey;
 
     protected $logger;
+    protected $check_signature;
 
-    public function __construct(Logger $logger_etransaction)
+    public function __construct(Logger $logger_etransaction, $check_signature)
     {
         $this->logger = $logger_etransaction;
+        $this->check_signature = $check_signature;
     }
 
     /**
@@ -109,29 +111,36 @@ class Etransactions
         endif;
 
         $retour['sucessPayment'] = false;
+        $retour['signatureValid'] = $this->check_signature === true ? false : true; // init the var to check signature
         $retour['ref'] = $query['ref'];
         $retour['amount'] = $query['amount'];
         $retour['error'] = $query['error'];
         $retour['auto'] = $query['auto'];
 
         // Check signature
-        if (!empty($query['sign']))
+        if (!empty($query['sign']) && $this->check_signature === true)
         {
             $retour['sign'] = $query['sign'];
 
-            if ( $this->checkSignature( $retour['sign'], $request->getQueryString() ) === true )
+            if ($this->checkSignature( $retour['sign'], $request->getQueryString() ) === true )
             {
-                $this->writeLog( json_encode($query) );
-
-                if ($retour['error'] == "00000") :
-                    $retour['sucessPayment'] = true;
-                endif;
+                $retour['signatureValid'] = true;
             }else{
                 $this->writeErrorLog( "Fail check signature with ref : [".$retour['ref']."] and the data_query [".$request->getQueryString()."] ".json_encode($query) );
             }
         }else{
-            $this->writeErrorLog( "Empty signature with ref : [".$retour['ref']."] ".json_encode($query) );
+            $this->writeErrorLog( "Empty or No check signature signature with ref : [".$retour['ref']."] ".json_encode($query) );
         }
+
+        // Check
+        if( $retour['signatureValid'] === true ){
+            $this->writeLog( json_encode($query) );
+
+            if ($retour['error'] == "00000") :
+                $retour['sucessPayment'] = true;
+            endif;
+        }
+
         return $retour;
     }
 
