@@ -4,6 +4,7 @@ namespace Snowbaha\EtransactionsBundle\Service;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Monolog\Logger;
+use Symfony\Component\HttpKernel\Config\FileLocator;
 
 /**
  * Class Etransactions
@@ -25,13 +26,20 @@ class Etransactions
         'site' => null,
         'rang' => null,
         'hash' => "SHA512",
-        'retour' => "amount:M;ref:R;error:E;auto:A;sign:S", // M : amount (pbx_total) ; R : reference (pbx_cmd) ; E : error ; A : Autorisation number ; S : signature (must be the last)
+        'retour' => "amount:M;ref:R;error:E;auto:A;sign:K", // M : amount (pbx_total) ; R : reference (pbx_cmd) ; E : error ; A : Autorisation number ; K : signature (must be the last)
     );
 
     /**
+     * Key HMAC private to send data to IPN
      * @var string
      */
     private $key;
+
+    /**
+     * Key .PEM to check Signature
+     * @var string
+     */
+    private $publicKey;
 
     protected $logger;
 
@@ -186,14 +194,13 @@ class Etransactions
      * @param $sign
      * @return bool
      */
-    protected function checkSignature($sign, $query_string )
+    public function checkSignature($sign, $query_string )
     {
         $pos_sign = strrpos( $query_string, '&' ); // search the last
         $data = substr( $query_string, 0, $pos_sign ); // data without the signature
-
         $signature_base = base64_decode( urldecode( $sign ));
-        
-        return openssl_verify( $data, $signature_base, $this->key  );
+
+        return openssl_verify( $data, $signature_base, $this->publicKey );
     }
 
     /**
@@ -233,13 +240,31 @@ class Etransactions
 
     /**
      * Hydratation of the default array
-     * @param $site int/string
-     * @param $retour
+     * @param int $identifiant
+     * @param int $site
+     * @param $rang
      */
-    public function setParameterFields(int $identifiant,int $site, $rang)
+    public function setParameterFields(int $identifiant, int $site, $rang)
     {
         $this->mandatoryFields['identifiant'] = $identifiant;
         $this->mandatoryFields['site'] = $site;
         $this->mandatoryFields['rang'] = $rang;
+    }
+
+    /**
+     * set the public key to check the signature
+     * @param FileLocator $fileLocator
+     * @param $kernel_root
+     */
+    public function setPublicKey( FileLocator $fileLocator, $kernel_root )
+    {
+        $file_key = $fileLocator->locate($kernel_root.'/../vendor/snowbaha/etransactions-bundle/Resources/pubkey.pem');
+
+        $fsize =  filesize( $file_key );
+        $fp = fopen( $file_key, 'r' );
+        $file_key_data = fread( $fp, $fsize ); // read content
+        fclose( $fp );
+
+        $this->publicKey = openssl_pkey_get_public( $file_key_data );
     }
 }

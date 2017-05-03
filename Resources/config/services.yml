@@ -5,6 +5,7 @@ services:
             - '@snowbaha.etransactions.logger'
         calls:
             - ['setKey', ['%snowbaha_etransactions.env_mode%', '%snowbaha_etransactions.key_dev%', '%snowbaha_etransactions.key_prod%']]
+            - ['setPublicKey', ['@file_locator', '%kernel.root_dir%']]
             - ['setParameterFields', ['%snowbaha_etransactions.identifiant%','%snowbaha_etransactions.site%', '%snowbaha_etransactions.rang%']]
 
     snowbaha.etransactions.twig_extension:

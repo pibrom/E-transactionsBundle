@@ -103,7 +103,7 @@ Service Method:
     * ref: (your pbx_cmb var)
     * error:E; (error with `00000` if nothing)
     * auto:A; (autorisation)
-    * sign:S  (signature to check)
+    * sign:K  (signature to check)
 
 ##### Example
 ```php
