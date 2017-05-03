@@ -3,8 +3,8 @@
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/480895ee-8a76-4bd6-a823-9e0a90f32576/big.png)](https://insight.sensiolabs.com/projects/480895ee-8a76-4bd6-a823-9e0a90f32576) [![Latest Stable Version](https://poser.pugx.org/snowbaha/etransactions-bundle/v/stable)](https://packagist.org/packages/snowbaha/etransactions-bundle)  [![Total Downloads](https://poser.pugx.org/snowbaha/etransactions-bundle/downloads)](https://packagist.org/packages/snowbaha/etransactions-bundle)
 
-This bundle allows to implement a Payment Solution working with [E-transactions](https://www.e-transactions.fr) for your symfony projet.
-E-transactions is a payment gateway proposed by the following bank "Crédit Agricole".
+This bundle allows to implement a Payment Solution working with [E-transactions](https://www.e-transactions.fr) for your symfony project.
+E-transactions is a payment proposed by the following bank "Crédit Agricole".
 Don't hesitate to contact me to improve it ;)
 
 ## Installation
@@ -54,8 +54,8 @@ snowbaha_etransactions:
     key_dev: "%etransactions_certif_test%"
     key_prod: "%etransactions_certif_prod%"
     # SETTING OPTIONAL
-    # env_mode: TEST # TEST bu default - Possible values : TEST / PRODUCTION
-    # check_signature: false # false by Default (if you want to check the signature of the IPN Bank
+    # env_mode: TEST # TEST by default - Possible values : TEST / PRODUCTION
+    # check_signature: false # /!\ KEEP IT to false because it doesn't work and i DONT KNOW WHY (let me know if you have a solution) false by Default (if you want to check the signature of the IPN Bank
 
 ```
 
@@ -164,7 +164,3 @@ This is how the template for the `payOnlineAction()` may look like. You can use 
 
 ### LOG
 When you will get an error with the payment, you can have more information with the log : `ENV.etransaction.log`
-
-### /!\ Check the signature 
-The current version of this bundle doesn't check the content signature (just check if not empty), don't hesitate to send me your code to put it in the next version!
-`Service\Etransactions   checkSignature()`
