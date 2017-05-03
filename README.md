@@ -5,7 +5,7 @@
 
 This bundle allows to implement a Payment Solution working with [E-transactions](https://www.e-transactions.fr) for your symfony projet.
 E-transactions is a payment gateway proposed by the following bank "Crédit Agricole".
-Don't hesitate to contact me to improved it ;)
+Don't hesitate to contact me to improve it ;)
 
 ## Installation
 ### Step 1 : Import using Composer
