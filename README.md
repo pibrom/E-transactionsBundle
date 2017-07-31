@@ -47,14 +47,14 @@ Mandatory fields CONFIG :
 ```yaml
 snowbaha_etransactions:
     # Credentials
-    id: "%etransactions_id%"
+    identifiant: "%etransactions_id%"
     site: "%etransactions_site%"
-    rang: "your_rank"
+    rang: "01" #change it with your RANK
     # Keys
     key_dev: "%etransactions_certif_test%"
     key_prod: "%etransactions_certif_prod%"
     # SETTING OPTIONAL
-    # env_mode: TEST # TEST by default - Possible values : TEST / PRODUCTION
+    env_mode: TEST # TEST by default - Possible values : TEST / PRODUCTION
     # check_signature: false # /!\ KEEP IT to false because it doesn't work and i DONT KNOW WHY (let me know if you have a solution) false by Default (if you want to check the signature of the IPN Bank
 
 ```
@@ -68,7 +68,7 @@ All mandatory fields are used with their default value. You can configure all th
 To see what fields are available see the PDF official doc.
 
 ##### Service Method
-* `init($order_id, $amount, $email_buyer, $currency = 978)` allows you to specify the amount and the currency of the transaction.
+* `init($order_id, $amount, $email_buyer, $currency = 978)` allows you to specify the id, amount, email of buyer and the currency of the transaction.
 * `setOptionnalFields(array)` allows you to specify any field.
 
 ##### Example
@@ -87,7 +87,7 @@ To see what fields are available see the PDF official doc.
             ))
         ;
 
-        return $this->render('YOURBUNDLEBundle:Etransactions:formToSend.html.twig', array(
+        return $this->render('YOURBUNDLEBundle:Etransactions:pay_online.html.twig', array(
                     'paymentUrl' => $etransactions->getPaymentUrl(),
                     'fields' => $etransactions->getFields(),
                 ));
@@ -98,7 +98,7 @@ This route will be called by the E-Transactions service to update you about the 
 
 Service Method:
 * `responseBankServer(Request)` is used to update the transaction status (in database)
-* You will a array with :
+* You will get a array with :
     * sucessPayment: (should be true to validate the payment)
     * amount: (your pbx_total var)
     * ref: (your pbx_cmb var)
@@ -110,6 +110,7 @@ Service Method:
 ```php
     // YOUR CONTROLLER
     /**
+     * THIS ROUTE have to be public to allow the bank access, it is the URL you will provide to your account 
      * @Route("/payment/verification")
      * @param Request $request
      */
