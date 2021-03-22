@@ -112,9 +112,9 @@ class Etransactions
 
         $retour['sucessPayment'] = false;
         $retour['signatureValid'] = $this->check_signature === true ? false : true; // init the var to check signature
-        $retour['ref'] = $query['ref'];
-        $retour['amount'] = $query['amount'];
-        $retour['error'] = $query['error'];
+        $retour['ref'] = $query['ref'] ?: null;
+        $retour['amount'] = $query['amount'] ?: null;
+        $retour['error'] = $query['error'] ?: null;
         $retour['auto'] = $query['auto'] ?: null;
 
         // Check signature
