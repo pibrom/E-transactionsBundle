@@ -115,7 +115,7 @@ class Etransactions
         $retour['ref'] = $query['ref'];
         $retour['amount'] = $query['amount'];
         $retour['error'] = $query['error'];
-        $retour['auto'] = $query['auto'];
+        $retour['auto'] = $query['auto'] ?: null;
 
         // Check signature
         if (!empty($query['sign']) && $this->check_signature === true)
