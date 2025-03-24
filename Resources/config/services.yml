@@ -6,7 +6,7 @@ services:
             - '%snowbaha_etransactions.check_signature%'
         calls:
             - ['setKey', ['%snowbaha_etransactions.env_mode%', '%snowbaha_etransactions.key_dev%', '%snowbaha_etransactions.key_prod%']]
-            - ['setPublicKey', ['@file_locator', '%kernel.root_dir%']]
+            - ['setPublicKey', ['@file_locator', '%kernel.project_dir%']]
             - ['setParameterFields', ['%snowbaha_etransactions.identifiant%','%snowbaha_etransactions.site%', '%snowbaha_etransactions.rang%']]
 
     snowbaha.etransactions.twig_extension:
